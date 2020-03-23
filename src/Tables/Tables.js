@@ -1,18 +1,14 @@
-import React from "react";
-import ReactTable from 'react-table-6'
-import 'react-table-6/react-table.css'
+import React, { Component } from "react";
+import ReactTable from "react-table-6";
+import "react-table-6/react-table.css";
 
+const url = "https://jsonplaceholder.typicode.com/posts";
 class Tables extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      value: "",
-    };
-    this.getColumns = this.getColumns.bind(this);
-  }
+  state = {
+    posts: [],
+    value: ""
+  };
   componentDidMount() {
-    const url = "https://jsonplaceholder.typicode.com/posts";
     fetch(url, {
       method: "GET"
     })
@@ -33,25 +29,23 @@ class Tables extends Component {
           };
         });
       return column;
-    } else {
-      return [];
     }
+    return [];
   }
 
   render() {
     const columns = this.getColumns();
     return (
-      <div>
+      <React.Fragment>
         <ReactTable
           data={this.state.posts}
           columns={columns}
           defaultPageSize={10}
           className="-striped -highlight"
         />
-        <br />
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default Tables
+export default Tables;
